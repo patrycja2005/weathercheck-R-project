@@ -2,7 +2,7 @@
 title: "weathercheck-analyst"
 author: "Patrycja Kornobis"
 date: "`r Sys.Date()`"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
