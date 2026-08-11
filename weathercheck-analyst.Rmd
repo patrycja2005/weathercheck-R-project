@@ -5,26 +5,93 @@ date: "`r Sys.Date()`"
 output: github_document
 ---
 
+# Wstęp
+
+Projekt analizuje zbiór danych *weather_check* z pakietu **fivethirtyeight** (dostępny również na [GitHubie](https://github.com/fivethirtyeight/data/tree/master/weather-check)).
+
+Badanie sprawdza, jak grupy demograficzne (wiek, płeć, dochód, region) różnią się w zachowaniach związanych z pogodą — m.in. w częstotliwości sprawdzania prognoz, wyborze źródeł informacji czy korzystaniu ze smartwatchy.
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Wczytanie bibliotek
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align="center")
+library(fivethirtyeight)
+library(tidyverse)
+library(knitr)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+``` {r}
+# Załadowanie danych
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+wc <- weather_check
 
-```{r cars}
-summary(cars)
+# Przekształcenia danych
+
+wc$sex <- factor(
+              ifelse( is.na( wc$female), "not given",
+              ifelse( wc$female == TRUE, "Female", 
+                      "Male") ),
+              levels = c("Male", "Female", "not given")
+              )
+
+
+wc$ck_weather <- factor(wc$ck_weather,
+                         levels = c(TRUE, FALSE),
+                         labels = c("yes", "no"))
+
+
+wc$ck_weather_watch <- factor(wc$ck_weather_watch)
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Przegląd zmiennych
+
+Zbiór danych zawiera `r nrow(wc)` obserwacji (respondentów) oraz `r ncol(wc)` zmiennych:
+
+| Nazwa zmiennej       | Opis |
+|---------------------|----------------------------------------------------------------------------------------------------|
+| `respondent_id`      | Identyfikator respondenta |
+| `ck_weather`         | Czy zazwyczaj sprawdzasz codzienną prognozę pogody? (Zmienna logiczna przekształcona w faktor: "yes"/"no") |
+| `weather_source`     | W jaki sposób zazwyczaj sprawdzasz pogodę? |
+| `weather_source_site`| Konkretna strona internetowa lub aplikacja wpisana przez osoby, które wybrały odpowiedź "A specific website or app" |
+| `ck_weather_watch`   | Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, że sprawdzał(a)byś na nim pogodę? |
+| `age`                | Wiek |
+| `female`             | Płeć (wartość logiczna TRUE/FALSE) |
+| `hhold_income`       | Łączny dochód gospodarstwa domowego z ubiegłego roku |
+| `region`             | Region USA |
+| `sex`                | Dodatkowa zmienna utworzona na podstawie zmiennej *female* ("Male", "Female", "not given") |
+
+
+
+# Analiza
+
+W tej części przejdziemy do szczegółowej analizy zachowań respondentów. Zbadamy m.in., jak często sprawdzają oni prognozę pogody, jakich źródeł informacji używają oraz jakie mają podejście do nowych technologii (smartwatchy). 
+
+Szczególną uwagę poświęcimy różnicom demograficznym — sprawdzimy, czy płeć, wiek lub miejsce zamieszkania mają istotny wpływ na nawyki związane ze sprawdzaniem pogody.
+
+
+
+```{r}
+# czy sprawdzasz pogode? podział na płeć
+wc %>% 
+  ggplot(aes(x = ck_weather, fill = sex)) +
+  geom_bar(color = "white",
+           position = "dodge",
+           width = 0.6) +
+  geom_text(stat = "count", 
+            aes(label = after_stat(count)), 
+            position = position_dodge(width = 0.6), 
+            vjust = -0.5, 
+            size = 3) +
+  scale_fill_manual(values = c( 
+    "Female" = "lightpink2", 
+    "Male" = "lightblue",
+    "not given" = "grey")) +
+  xlab("") + ylab("") +
+  ggtitle("Czy zazwyczaj sprawdzasz codzienną prognozę pogody?") +
+  theme_minimal()
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -43,19 +43,24 @@ wc %>%
 
 # czy sprawdzasz pogode? podział na płeć
 wc %>% 
-  ggplot( aes(x= ck_weather)) +
-  geom_bar( aes(fill= sex),
-            color = "white",
-            position = "dodge",
-            width = 0.6)+
-  scale_fill_manual( values = c( 
+  ggplot(aes(x = ck_weather, fill = sex)) +
+  geom_bar(color = "white",
+           position = "dodge",
+           width = 0.6) +
+  geom_text(stat = "count", 
+            aes(label = after_stat(count)), 
+            position = position_dodge(width = 0.6), 
+            vjust = -0.5, 
+            size = 3) +
+  scale_fill_manual(values = c( 
     "Female" = "lightpink2", 
-    "Male"= "lightblue",
-    "not given" = "grey"))+
-  xlab("") + ylab("")+
-  ggtitle("Do you typically check a daily weather report?")+
-  theme(
-    plot.title = element_text(hjust = 0.5))
+    "Male" = "lightblue",
+    "not given" = "grey")) +
+  xlab("") + ylab("") +
+  ggtitle("Czy zazwyczaj sprawdzasz codzienną prognozę pogody?") +
+  theme_minimal()
+
+
 
 # jak sprawdzasz pogode
 wc %>% 
