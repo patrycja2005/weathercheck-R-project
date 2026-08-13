@@ -81,6 +81,7 @@ wc %>%
   summarise( n=n()) %>% 
   arrange(desc(n))
 
+
 wc %>%
   filter( !is.na( ck_weather_watch)) %>%
   count( ck_weather_watch) %>%

@@ -103,6 +103,7 @@ wc %>%
 
 
 # żródło by wiek
+
 wc %>%
   filter( !is.na(age)) %>% 
   ggplot( aes( x = age, 
@@ -148,6 +149,8 @@ wc %>%
   theme_minimal()
 
 
+# Stosunek do smartwatchy a dochód gospodarstwa domowego
+
 wc %>% 
   filter(!is.na(hhold_income), !is.na(ck_weather_watch)) %>% 
   ggplot(aes(x = hhold_income, fill = ck_weather_watch)) +
@@ -158,16 +161,15 @@ wc %>%
        x = "", y = "Procent odpowiedzi", fill = "Odpowiedź") +
   theme_minimal()
 
-# 1. Przygotowanie danych (usunięcie braków danych NA)
+# 1) Przygotowanie danych (usunięcie braków danych NA)
 dane_test <- wc %>% 
   filter(!is.na(hhold_income), !is.na(ck_weather_watch))
 
-# 2. Utworzenie tabeli
+# 2) Utworzenie tabeli
 tabela_krzyzowa <- table(dane_test$hhold_income, dane_test$ck_weather_watch)
 
-# 3. Wykonanie testu Chi-kwadrat
+# 3) Wykonanie testu Chi-kwadrat
 test_chi2 <- chisq.test(tabela_krzyzowa)
 
-# 4. Wyświetlenie wyników testu
+# 4) Wyświetlenie wyników testu
 test_chi2
-
