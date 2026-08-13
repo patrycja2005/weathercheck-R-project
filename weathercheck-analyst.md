@@ -48,6 +48,23 @@ związane ze sprawdzaniem pogody.
 
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
-<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+| age     | liczba |
+|:--------|-------:|
+| 18 - 29 |    120 |
+| 30 - 44 |    161 |
+| 45 - 59 |    234 |
+| 60+     |    224 |
 
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+
+<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+
+<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+
+<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+
+    ## 
+    ##  Pearson's Chi-squared test
+    ## 
+    ## data:  tabela_krzyzowa
+    ## X-squared = 20.059, df = 30, p-value = 0.915

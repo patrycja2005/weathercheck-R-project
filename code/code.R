@@ -93,3 +93,81 @@ wc %>%
        subtitle = "Według wieku")+
   theme_minimal()+
   theme(legend.position = "none")
+
+
+wc %>% 
+  filter(!is.na(age)) %>% 
+  filter(ck_weather == 'yes') %>%
+           group_by( age ) %>% 
+           summarise( n=n() )
+
+
+# żródło by wiek
+wc %>%
+  filter( !is.na(age)) %>% 
+  ggplot( aes( x = age, 
+               fill = weather_source)) +
+  geom_bar() +
+  labs(title = "W jaki sposób zazwyczaj sprawdzasz pogodę?",
+       subtitle= "według wieku",
+       x = "", 
+       y = "", 
+       fill = "Weather source")+
+  facet_wrap(~weather_source, scales = "free_x", ncol = 2)+
+  theme_minimal()+
+  theme(legend.position = "none")
+
+
+# Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, że sprawdzał(a)byś na nim pogodę?
+wc %>%
+  filter( !is.na( ck_weather_watch)) %>%
+  count( ck_weather_watch) %>%
+  ggplot (aes (y = ck_weather_watch, x = n )) +
+  geom_col( fill = "steelblue1", color = "white", width = 0.6) +
+  geom_text( aes( label = n), hjust = -0.3, size = 3) +
+  xlab("") +
+  ylab("") +
+  labs(title = "Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę?") +
+  xlim(c(0,400))+
+  theme_minimal()+
+  theme(plot.title = element_text(size = 10))
+
+
+# Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę? według wieku
+wc %>%
+  filter( !is.na( ck_weather_watch)) %>%
+  filter( !is.na(age)) %>% 
+  ggplot( aes(x= age, fill = ck_weather_watch))+
+  geom_bar( position = "dodge", color= "white")+
+  labs( x= "",
+        y= "",
+        title = "Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę?",
+        subtitle = "według wieku",
+        fill= "How likely?")+
+  theme(plot.title = element_text( hjust = 0.2, size = 12))+
+  theme_minimal()
+
+
+wc %>% 
+  filter(!is.na(hhold_income), !is.na(ck_weather_watch)) %>% 
+  ggplot(aes(x = hhold_income, fill = ck_weather_watch)) +
+  geom_bar(position = "fill") + # Paski skumulowane do 100%
+  scale_y_continuous(labels = scales::percent) +
+  coord_flip() +
+  labs(title = "Stosunek do smartwatchy a dochód gospodarstwa domowego",
+       x = "", y = "Procent odpowiedzi", fill = "Odpowiedź") +
+  theme_minimal()
+
+# 1. Przygotowanie danych (usunięcie braków danych NA)
+dane_test <- wc %>% 
+  filter(!is.na(hhold_income), !is.na(ck_weather_watch))
+
+# 2. Utworzenie tabeli
+tabela_krzyzowa <- table(dane_test$hhold_income, dane_test$ck_weather_watch)
+
+# 3. Wykonanie testu Chi-kwadrat
+test_chi2 <- chisq.test(tabela_krzyzowa)
+
+# 4. Wyświetlenie wyników testu
+test_chi2
+
