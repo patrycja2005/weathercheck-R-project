@@ -42,4 +42,12 @@ Szczególną uwagę poświęcimy różnicom demograficznym — sprawdzimy, czy
 płeć, wiek lub miejsce zamieszkania mają istotny wpływ na nawyki
 związane ze sprawdzaniem pogody.
 
+## 
+
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+
+<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+
+<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+
+<img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />

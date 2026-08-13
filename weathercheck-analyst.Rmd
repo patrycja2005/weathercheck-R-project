@@ -73,9 +73,10 @@ W tej części przejdziemy do szczegółowej analizy zachowań respondentów. Zb
 Szczególną uwagę poświęcimy różnicom demograficznym — sprawdzimy, czy płeć, wiek lub miejsce zamieszkania mają istotny wpływ na nawyki związane ze sprawdzaniem pogody.
 
 
+## 
 
 ```{r}
-# czy sprawdzasz pogode? podział na płeć
+# Czy zazwyczaj sprawdzasz codzienną prognozę pogody? podział na płeć
 wc %>% 
   ggplot(aes(x = ck_weather, fill = sex)) +
   geom_bar(color = "white",
@@ -93,5 +94,65 @@ wc %>%
   xlab("") + ylab("") +
   ggtitle("Czy zazwyczaj sprawdzasz codzienną prognozę pogody?") +
   theme_minimal()
+```
+
+```{r}
+# Osoby zazwyczaj sprawdzające codzienną prognozę pogody Według regionu
+wc %>% 
+  filter(ck_weather == 'yes') %>%
+  filter(!is.na(region)) %>% 
+  count( region) %>% 
+  ggplot( aes(y = reorder(region, n), x=n, fill= n)) + 
+  geom_col( 
+    color= "white")+
+  geom_text( aes( label = n),
+             hjust = -0.2, 
+             size = 3)+
+  scale_fill_gradient(high ="#3CB371",low="lightgoldenrod1")+
+  labs(x="",
+       y= "",
+       title="Osoby zazwyczaj sprawdzające codzienną prognozę pogody",
+       subtitle = "Według regionu")+
+    theme_minimal()+
+  theme(plot.title = element_text( hjust = -0.5, size = 13), 
+        legend.position = "none")
+```
+
+
+
+```{r}
+## Osoby zazwyczaj sprawdzające codzienną prognozę pogody Według wieku
+wc %>% 
+  filter(ck_weather == 'yes') %>%
+  filter(!is.na(age)) %>% 
+  count( age) %>% 
+  ggplot( aes(x = reorder(age, -n), y=n, fill= n)) + 
+  geom_col( 
+    fill= "#8867A1")+
+  geom_text( aes( label = n),
+             size = 3, 
+             vjust = -0.5)+
+  labs(x="",
+       y= "",
+       title="Osoby zazwyczaj sprawdzające codzienną prognozę pogody",
+       subtitle = "Według wieku")+
+  theme_minimal()+
+  theme(legend.position = "none")
+```
+
+```{r}
+# żródło by wiek
+wc %>%
+  filter( !is.na(age)) %>% 
+  ggplot( aes( x = age, 
+               fill = weather_source)) +
+  geom_bar() +
+  labs(title = "Weather source by age",
+       x = "", 
+       y = "", 
+       fill = "Weather source")+
+  facet_wrap(~weather_source, scales = "free_x", ncol = 2)+
+  theme_minimal()+
+  theme(legend.position = "none")
 ```
 

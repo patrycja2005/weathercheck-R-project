@@ -51,7 +51,7 @@ wc %>%
             aes(label = after_stat(count)), 
             position = position_dodge(width = 0.6), 
             vjust = -0.5, 
-            size = 3) +
+            size = ) +
   scale_fill_manual(values = c( 
     "Female" = "lightpink2", 
     "Male" = "lightblue",
@@ -227,9 +227,8 @@ wc %>%
   ggplot( aes(y = reorder(region, n), x=n, fill= n,)) + 
   geom_col( 
     color= "white")+
-  geom_text( aes( label = n),
-             hjust = -0.3, 
-             size = 3.5)+
+  geom_text( aes( label = n), 
+             size = 3)+
   scale_fill_gradient(high ="#3CB371",low="lightgoldenrod1")+
   labs(x="Number of people",
        y= "Region",
