@@ -181,7 +181,6 @@ wc %>%
   theme(legend.position = "none")
 
 
-
 # Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, że sprawdzał(a)byś na nim pogodę?
 wc %>%
   filter( !is.na( ck_weather_watch)) %>%

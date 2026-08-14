@@ -1,7 +1,7 @@
 weathercheck-analyst
 ================
 Patrycja Kornobis
-2026-08-14
+2026-08-16
 
 # Wstęp
 
@@ -160,18 +160,156 @@ pogody.
 > w codziennych nawykach respondentów. Wyniki te wyraźnie wskazują na
 > dominację mediów cyfrowych i mobilnych nad mediami tradycyjnymi.
 
+### Najczęściej wybierane źróło informacji pogodowej w poszczególnych kategoriach wiekowych
+
+Wybór źródła informacji o pogodzie w znacznym stopniu zależy od wieku
+respondentów. Poniższe zestawienie pokazuje, jak preferencje dotyczące
+kanałów informacyjnych kształtują się w poszczególnych grupach wiekowych
+— od najmłodszych badanych po osoby w wieku 60 lat i więcej.
+
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+
+#### Komentarz do wykresu
+
+Wykres wyraźnie ukazuje lukę pokoleniową w sposobie pozyskiwania
+informacji pogodowych:
+
+- Domyślna aplikacja w telefonie (The default weather app…) dominuje
+  wśród młodszych respondentów (18–29 oraz 30–44 lat), a wraz z wiekiem
+  jej popularność stopniowo spada.
+
+- Lokalna telewizja (Local TV News) wykazuje odwrotny trend — jest
+  rzadko wybierana przez młodych, natomiast stanowi jedno z głównych
+  źródeł dla osób w wieku 45–59 lat oraz zdecydowanie najpopularniejsze
+  źródło w grupie 60+.
+
+- Konkretne aplikacje/strony (A specific website or app) oraz stacja
+  telewizyjna The Weather Channel cieszą się największym uznaniem wśród
+  osób w średnim i starszym wieku (45–59 lat).
+
+- Wyszukiwarka internetowa (Internet search) utrzymuje stabilne
+  zainteresowanie na zbliżonym poziomie we wszystkich grupach wiekowych.
+
+- Traditional media, takie jak gazety drukowane (Newspaper) czy radio
+  (Radio weather), są wybierane sporadycznie, głównie przez najstarszych
+  badanych (60+).
 
 ## Stosunek do sprawdzania pogody na smartwachu
 
+### Prawdopodobieństwo używania smartwacha do codziennej weryfiacji pogody
+
+Rozwój technologii tworzy nowe możliwości dostępu do bieżących
+informacji. Poniższy wykres przedstawia gotowość respondentów do
+wykorzystania inteligentnych zegarków jako narzędzia do sprawdzania
+prognozy pogody
+
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+
+#### Komentarz do wykresu
+
+> Większość respondentów wykazuje wysoki potencjał adopcji tej
+> technologii – łącznie 636 osób deklaruje chęć sprawdzania pogody na
+> smartwatchu (362 – Very likely, 274 – Somewhat likely). Przeciwnego
+> zdania jest grupa 281 osób, z czego 208 uważa to za bardzo mało
+> prawdopodobne (Very unlikely). Wyniki te wskazują na duże
+> zapotrzebowanie na aplikacje pogodowe dostosowane do urządzeń typu
+> smartwatch
+
+### Prawdopodobieństwo używania smartwacha do codziennej weryfiacji pogody w poszczególnych grupach wiekowych
 
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
+#### Komentarz do wykresu
+
+- Najwyższa entuzjastyczna deklaracja (Very likely): Wyraźnie wyróżnia
+  się grupa 45–59 lat, gdzie odpowiedź „bardzo prawdopodobne” osiąga
+  najwyższy wynik spośród wszystkich klastrów.
+
+- Ogólna otwartość na nową technologię: We wszystkich grupach wiekowych
+  odpowiedzi pozytywne (Very likely oraz Somewhat likely) przeważają nad
+  odpowiedziami negatywnymi.
+
+- Sceptycyzm (Very unlikely / Somewhat unlikely): Niechęć lub dystans do
+  sprawdzania pogody na zegarku stopniowo rośnie wraz z wiekiem
+  respondentów, osiągając najwyższą wartość w grupie 60+.
+
+### Prawdopodobieństwo używania smartwacha do codziennej weryfiacji pogody względem dochodów
+
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+
+#### Komentarz do wykresu
+
+- \$175,000 to \$199,999 oraz \$200,000 and up) wykazują najwyższy
+  odsetek zdecydowanie pozytywnych odpowiedzi (Very likely przesuwające
+  się w okolice 50%).
+
+- Ogólna przychylność: We wszystkich przedziałach dochodowych łączny
+  udział odpowiedzi pozytywnych (Very likely oraz Somewhat likely)
+  przekracza 60–70%, co pokazuje powszechne zainteresowanie tą
+  funkcjonalnością niezależnie od zamożności.
+
+- Bariera wejścia (Very unlikely): Sceptycyzm (Very unlikely) występuje
+  we wszystkich grupach, jednak ma nieco większy udział w niższych i
+  średnich koszykach dochodowych (np. \$0 to \$9,999 oraz \$10,000 to
+  \$24,999), co może wynikać z niższej dostępności samych urządzeń w
+  tych gospodarstwach.
+
+### Weryfikacja hipotezy: Dochód a smartwatch
+
+**Postawione hipotezy:**
+
+- **Hipoteza zerowa ($H_0$):** Dochód gospodarstwa domowego
+  (`hhold_income`) oraz gotowość do sprawdzania pogody na smartwatchu
+  (`ck_weather_watch`) są zmiennymi niezależnymi (brak zależności).
+
+- **Hipoteza alternatywna ($H_1$):** Istnieje istotna zależność pomiędzy
+  dochodem gospodarstwa domowego a chęcią korzystania ze smartwatcha do
+  sprawdzania pogody.
+
+<!-- -->
 
     ## 
     ##  Pearson's Chi-squared test
     ## 
     ## data:  tabela_krzyzowa
     ## X-squared = 20.059, df = 30, p-value = 0.915
+
+**Wyniki testu Chi-kwadrat Pearsona:**
+
+- **Statystyka testowa ($\chi^2$):** $20{,}059$
+- **Poziom istotności ($p\text{-value}$):** $0{,}915$
+- **Przyjęty poziom istotności ($\alpha$):** $0{,}05$
+
+**Decyzja i wniosek:**
+
+**Ponieważ $p > 0{,}05$ ($0{,}915 > 0{,}05$), brak jest podstaw do
+odrzucenia hipotezy zerowej ($H_0$).**
+
+#### Wnioski
+
+> Wynik wskazuje na brak istotnej statystycznie zależności – dochód
+> respondentów nie wpływa na ich skłonność do sprawdzania prognozy
+> pogody na smartwatchu.
+
+## **Podsumowanie**
+
+Badanie analizuje zbiór danych dotyczący nawyków pogodowych Amerykanów,
+ze szczególnym uwzględnieniem różnic demograficznych w podejściu do
+sprawdzania prognoz.
+
+Codzienne śledzenie pogody jest powszechnym nawykiem, który dominuje
+wśród kobiet, osób po 45. roku życia oraz mieszkańców regionów o
+dynamicznym klimacie, takich jak Pacific, East North Central i South
+Atlantic.
+
+W wyborze źródła informacji widoczna jest wyraźna luka pokoleniowa, w
+której młodsi badani wybierają domyślne aplikacje mobilne, podczas gdy
+najstarsi pozostają wierni lokalnej telewizji.
+
+Większość respondentów wykazuje wysoki potencjał adopcji smartwatchy do
+sprawdzania pogody, przy czym największy entuzjazm wyrażają osoby w
+wieku 45–59 lat.
+
+Test Chi-kwadrat jednoznacznie potwierdził, że poziom dochodów
+gospodarstwa domowego nie ma statystycznie istotnego wpływu na chęć
+korzystania ze smartwatcha w celach pogodowych.
