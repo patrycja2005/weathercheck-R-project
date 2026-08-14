@@ -256,6 +256,7 @@ wc %>%
   geom_point(size = 4, color = "blue") +
   coord_flip() +
   labs(x = "", y = "Count")
+
 wc %>%
   count(ck_weather) %>%
   mutate(percent = n / sum(n) * 100) %>%

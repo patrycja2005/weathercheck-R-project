@@ -133,6 +133,17 @@ wc %>%
   theme_minimal()+
   theme(plot.title = element_text(size = 10))
 
+wc %>%
+  filter( !is.na( ck_weather_watch)) %>% 
+  count(ck_weather_watch) %>%
+  ggplot(aes(x = ck_weather_watch, y = n)) +
+  geom_segment(aes(xend = ck_weather_watch, yend = 0), color = "darkgrey") +
+  geom_point(size = 4, color = "steelblue1") +
+  geom_text( aes( label = n), hjust = -0.6, size = 2.5) +
+  coord_flip() +
+  labs(title = "Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę?",
+       x = "", y = "")+
+  theme_minimal()
 
 # Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę? według wieku
 wc %>%
