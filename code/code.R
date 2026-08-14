@@ -76,6 +76,51 @@ wc %>%
   theme(plot.title = element_text( hjust = -0.5, size = 13), 
         legend.position = "none")
 
+
+library(usmap)
+
+# 1. Zliczenie osób sprawdzających pogodę wg regionów
+dane_regiony <- wc %>% 
+  filter(ck_weather == 'yes', !is.na(region)) %>% 
+  count(region, name = "n")
+
+# 2. Słownik przypisujący stany USA (używane przez usmap) do regionów z badania
+stany_z_regionami <- usmap::us_map() %>% 
+  select(full_name = full, state = abbr) %>% 
+  distinct() %>% 
+  mutate(region = case_when(
+    full_name %in% c("Maine", "New Hampshire", "Vermont", "Massachusetts", "Rhode Island", "Connecticut") ~ "New England",
+    full_name %in% c("New York", "New Jersey", "Pennsylvania") ~ "Middle Atlantic",
+    full_name %in% c("Ohio", "Indiana", "Illinois", "Michigan", "Wisconsin") ~ "East North Central",
+    full_name %in% c("Minnesota", "Iowa", "Missouri", "North Dakota", "South Dakota", "Nebraska", "Kansas") ~ "West North Central",
+    full_name %in% c("Delaware", "Maryland", "District of Columbia", "Virginia", "West Virginia", "North Carolina", "South Carolina", "Georgia", "Florida") ~ "South Atlantic",
+    full_name %in% c("Kentucky", "Tennessee", "Alabama", "Mississippi") ~ "East South Central",
+    full_name %in% c("Arkansas", "Louisiana", "Oklahoma", "Texas") ~ "West South Central",
+    full_name %in% c("Montana", "Idaho", "Wyoming", "Colorado", "New Mexico", "Arizona", "Utah", "Nevada") ~ "Mountain",
+    full_name %in% c("Washington", "Oregon", "California", "Alaska", "Hawaii") ~ "Pacific"
+  ))
+
+# 3. Połączenie wartości z podziałem na stany
+dane_mapa <- stany_z_regionami %>% 
+  left_join(dane_regiony, by = "region")
+
+# 4. Wygenerowanie mapy
+plot_usmap(data = dane_mapa, values = "n", color = "white") +
+  scale_fill_gradient(
+    high = "#1D3557", 
+    low = "#A3C4F3", 
+    name = "Liczba osób",
+    na.value = "grey90"
+  ) +
+  labs(
+    title = "Osoby zazwyczaj sprawdzające codzienną prognozę pogody",
+    subtitle = "Według regionu USA"
+  ) +
+  theme(
+    plot.title = element_text(size = 13, face = "bold"),
+    legend.position = "right"
+  )
+
 ## Osoby zazwyczaj sprawdzające codzienną prognozę pogody Według wieku ---------
 wc %>% 
   filter(ck_weather == 'yes') %>%
@@ -103,7 +148,6 @@ wc %>%
 
 
 # żródło by wiek
-
 wc %>%
   filter( !is.na(age)) %>% 
   ggplot( aes( x = age, 
@@ -116,6 +160,24 @@ wc %>%
        fill = "Weather source")+
   facet_wrap(~weather_source, scales = "free_x", ncol = 2)+
   theme_minimal()+
+  theme(legend.position = "none")
+
+
+# żródło
+wc %>% 
+  filter(!is.na(weather_source)) %>% 
+  count(weather_source) %>% 
+  ggplot(aes(y = reorder(weather_source, n), x = n, fill = n)) +
+  geom_col() +
+  scale_fill_distiller(palette = "Blues", , direction = 1) + 
+  labs(title = "W jaki sposób zazwyczaj sprawdzasz pogodę?",
+       x = "", 
+       y = "", 
+       fill = "Weather source") +
+  geom_text( aes( label = n),
+             hjust = -0.2, 
+             size = 3)+
+  theme_minimal() +
   theme(legend.position = "none")
 
 

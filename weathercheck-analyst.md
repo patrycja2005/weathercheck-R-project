@@ -111,9 +111,54 @@ pogody różni się pomiędzy poszczególnymi generacjami respondentów.
 > codziennego śledzenia prognoz jest domena głównie starszych grup
 > wiekowych.
 
+### Profil typowej osoby sprawdzającej prognozę pogody
+
+Na podstawie przeprowadzonej analizy demograficznej i terytorialnej
+można stworzyć profil osoby, która najczęściej i najchętniej monitoruje
+codzienne warunki atmosferyczne:
+
+- **Płeć:** **Kobieta** (stanowią wyraźną większość wśród respondentów
+  odpowiadających twierdząco – **420** wskazań w porównaniu do 319
+  mężczyzn).
+- **Wiek:** **Osoba dojrzała / senior (45–59 lat lub 60+)** (nawyk
+  sprawdzania pogody wyraźnie rośnie wraz z wiekiem; te dwie grupy
+  stanowią łącznie aż **458** obserwacji).
+- **Miejsce zamieszkania:** **Mieszkaniec regionu Pacific, East North
+  Central lub South Atlantic** (obszary o dużej dynamice i zmienności
+  pogodowej, charakteryzujące się najwyższą liczbą deklaracji).
+- **Nawyki:** Wykazuje ukształtowaną codzienną rutynę śledzenia prognoz
+  (w przeciwieństwie do najmłodszych grup wiekowych 18–29 lat, gdzie
+  wskaźnik ten jest najniższy).
+
+> **Podsumowanie (Persona):** *Kobieta w wieku powyżej 45 lat,
+> zamieszkująca stany Wybrzeża Zachodniego, Rejonu Wielkich Jezior lub
+> Południowo-Wschodniego USA, dla której codzienne sprawdzanie prognozy
+> pogody jest stałym i naturalnym elementem planowania dnia.*
+
 ## Spodób sprawdzania pogody
 
+### Najczęściej wybierane źróło informacji pogodowej
+
+W erze cyfryzacji respondenci mają do dyspozycji szeroki wachlarz
+kanałów informacyjnych — od tradycyjnych mediów po nowoczesne aplikacje
+mobilne. Poniższe zestawienie przedstawia najpopularniejsze źródła, z
+których badani korzystają podczas sprawdzania codziennej prognozy
+pogody.
+
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+
+#### Komentarz do wykresu
+
+> Najpopularniejszym kanałem dostępu do informacji o pogodzie jest
+> domyślna aplikacja w telefonie (213 wskazań), co podkreśla kluczową
+> rolę wygody i szybkiego dostępu na urządzeniach mobilnych. Tuż za nią
+> plasują się lokalne wiadomości telewizyjne (189) oraz dedykowane
+> strony i aplikacje internetowe (175).
+
+> Tradycyjne źródła informacji, takie jak prasa drukowana (32), radio
+> (31) czy newslettery e-mailowe (8), odgrywają obecnie marginalną rolę
+> w codziennych nawykach respondentów. Wyniki te wyraźnie wskazują na
+> dominację mediów cyfrowych i mobilnych nad mediami tradycyjnymi.
 
 <img src="weathercheck-analyst_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
 
