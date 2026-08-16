@@ -38,7 +38,7 @@ wc$ck_weather_watch <- factor(wc$ck_weather_watch)
 ## Czy zazwyczaj sprawdzasz codzienną prognozę pogody? podział na płeć ---------
 wc %>% 
   ggplot(aes(x = ck_weather, fill = sex)) +
-  geom_bar(color = "white",
+  geom_bar(color = "darkgrey",
            position = "dodge",
            width = 0.6) +
   geom_text(stat = "count", 
@@ -47,16 +47,16 @@ wc %>%
             vjust = -0.5, 
             size = 3) +
   scale_fill_manual(values = c( 
-    "Female" = "lightpink2", 
-    "Male" = "lightblue",
-    "not given" = "grey")) +
+    "Female" = "#A3C4F3", 
+    "Male" = "#1D3557",
+    "not given" = "#D3D3D3")) +
   xlab("") + ylab("") +
   ggtitle("Czy zazwyczaj sprawdzasz codzienną prognozę pogody?") +
   theme_minimal()
 
 
 
-## Osoby zazwyczaj sprawdzające codzienną prognozę pogody Według regionu -------
+## Osoby zazwyczaj sprawdzające codzienną prognozę pogody według regionu -------
 wc %>% 
   filter(ck_weather == 'yes') %>%
   filter(!is.na(region)) %>% 
@@ -76,6 +76,10 @@ wc %>%
   theme(plot.title = element_text( hjust = -0.5, size = 13), 
         legend.position = "none")
 
+
+
+
+## Osoby zazwyczaj sprawdzające codzienną prognozę pogody Według regionu -------
 
 library(usmap)
 
@@ -121,6 +125,8 @@ plot_usmap(data = dane_mapa, values = "n", color = "white") +
     legend.position = "right"
   )
 
+
+
 ## Osoby zazwyczaj sprawdzające codzienną prognozę pogody Według wieku ---------
 wc %>% 
   filter(ck_weather == 'yes') %>%
@@ -139,7 +145,7 @@ wc %>%
   theme_minimal()+
   theme(legend.position = "none")
 
-
+### Tabelka ---------------------------------------------------------------------
 wc %>% 
   filter(!is.na(age)) %>% 
   filter(ck_weather == 'yes') %>%
@@ -147,28 +153,12 @@ wc %>%
            summarise( n=n() )
 
 
-# żródło by wiek
-wc %>%
-  filter( !is.na(age)) %>% 
-  ggplot( aes( x = age, 
-               fill = weather_source)) +
-  geom_bar() +
-  labs(title = "W jaki sposób zazwyczaj sprawdzasz pogodę?",
-       subtitle= "według wieku",
-       x = "", 
-       y = "", 
-       fill = "Weather source")+
-  facet_wrap(~weather_source, scales = "free_x", ncol = 2)+
-  theme_minimal()+
-  theme(legend.position = "none")
-
-
-# żródło
+## W jaki sposób zazwyczaj sprawdzasz pogodę? ----------------------------------
 wc %>% 
   filter(!is.na(weather_source)) %>% 
   count(weather_source) %>% 
   ggplot(aes(y = reorder(weather_source, n), x = n, fill = n)) +
-  geom_col() +
+  geom_col(color= "darkgrey") +
   scale_fill_distiller(palette = "Blues", , direction = 1) + 
   labs(title = "W jaki sposób zazwyczaj sprawdzasz pogodę?",
        x = "", 
@@ -181,25 +171,32 @@ wc %>%
   theme(legend.position = "none")
 
 
-# Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, że sprawdzał(a)byś na nim pogodę?
-wc %>%
-  filter( !is.na( ck_weather_watch)) %>%
-  count( ck_weather_watch) %>%
-  ggplot (aes (y = ck_weather_watch, x = n )) +
-  geom_col( fill = "steelblue1", color = "white", width = 0.6) +
-  geom_text( aes( label = n), hjust = -0.3, size = 3) +
-  xlab("") +
-  ylab("") +
-  labs(title = "Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę?") +
-  xlim(c(0,400))+
-  theme_minimal()+
-  theme(plot.title = element_text(size = 10))
 
+## W jaki sposób zazwyczaj sprawdzasz pogodę by wiek ---------------------------
+wc %>%
+  filter( !is.na(age)) %>% 
+  ggplot( aes( x = age, 
+               fill = weather_source)) +
+  geom_bar( color= "darkgrey") +
+  scale_fill_brewer(palette = "Blues") +
+  labs(title = "W jaki sposób zazwyczaj sprawdzasz pogodę?",
+       subtitle= "według wieku",
+       x = "", 
+       y = "", 
+       fill = "Weather source")+
+  facet_wrap(~weather_source, scales = "free_x", ncol = 2)+
+  theme_minimal()+
+  theme(legend.position = "none")
+
+
+
+
+## Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, że sprawdzał(a)byś na nim pogodę? -------
 wc %>%
   filter( !is.na( ck_weather_watch)) %>% 
   count(ck_weather_watch) %>%
   ggplot(aes(x = ck_weather_watch, y = n)) +
-  geom_segment(aes(xend = ck_weather_watch, yend = 0), color = "darkgrey") +
+  geom_segment(aes(xend = ck_weather_watch, yend = 0), color = "#8D99AE") +
   geom_point(size = 4, color = "steelblue1") +
   geom_text( aes( label = n), hjust = -0.6, size = 2.5) +
   coord_flip() +
@@ -207,42 +204,46 @@ wc %>%
        x = "", y = "")+
   theme_minimal()
 
-# Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę? według wieku
+## Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę? według wieku ---------------
 wc %>%
   filter( !is.na( ck_weather_watch)) %>%
   filter( !is.na(age)) %>% 
   ggplot( aes(x= age, fill = ck_weather_watch))+
-  geom_bar( position = "dodge", color= "white")+
+  geom_bar( position = "dodge", color= "darkgrey")+
+  scale_fill_brewer(palette = "Blues") +
   labs( x= "",
         y= "",
         title = "Gdybyś posiadał(a) smartwatcha, jak prawdopodobne jest, \n że sprawdzał(a)byś na nim pogodę?",
         subtitle = "według wieku",
         fill= "How likely?")+
-  theme(plot.title = element_text( hjust = 0.2, size = 12))+
+  theme(plot.title = element_text( hjust = 0.2, size = 11))+
   theme_minimal()
 
 
-# Stosunek do smartwatchy a dochód gospodarstwa domowego
-
+## Stosunek do smartwatchy a dochód gospodarstwa domowego ----------------------
 wc %>% 
   filter(!is.na(hhold_income), !is.na(ck_weather_watch)) %>% 
   ggplot(aes(x = hhold_income, fill = ck_weather_watch)) +
-  geom_bar(position = "fill") + # Paski skumulowane do 100%
+  geom_bar(position = "fill",  color= "darkgrey") + 
+  scale_fill_brewer(palette = "Blues") +
   scale_y_continuous(labels = scales::percent) +
   coord_flip() +
   labs(title = "Stosunek do smartwatchy a dochód gospodarstwa domowego",
-       x = "", y = "Procent odpowiedzi", fill = "Odpowiedź") +
+       x = "", y = "", fill = "How likely?") +
   theme_minimal()
 
-# 1) Przygotowanie danych (usunięcie braków danych NA)
+
+### Test chi
+
+# 1) Przygotowanie danych
 dane_test <- wc %>% 
   filter(!is.na(hhold_income), !is.na(ck_weather_watch))
 
-# 2) Utworzenie tabeli
+# 2) Utworzenie tabeli krzyżowej
 tabela_krzyzowa <- table(dane_test$hhold_income, dane_test$ck_weather_watch)
 
 # 3) Wykonanie testu Chi-kwadrat
 test_chi2 <- chisq.test(tabela_krzyzowa)
 
-# 4) Wyświetlenie wyników testu
+# 4) Wyświetlenie wyników
 test_chi2
